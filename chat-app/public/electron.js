@@ -5,6 +5,8 @@ const BrowserWindow = electron.BrowserWindow;
 const path = require("path");
 const url = require("url");
 const isDev = require("electron-is-dev");
+const ipc = electron.ipcMain;
+const dialog = electron.dialog;
 
 let mainWindow;
 
@@ -25,6 +27,9 @@ function createWindow() {
 
 app.on("ready", createWindow);
 
+ipc.on('open-error-dialog', (event) => {
+  dialog.showErrorBox('an err', 'jhjfshakjf')
+})
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
